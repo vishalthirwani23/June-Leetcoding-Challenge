@@ -1,10 +1,21 @@
-https://leetcode.com/explore/challenge/card/june-leetcoding-challenge/539/week-1-june-1st-june-7th/3350/
+https://leetcode.com/explore/challenge/card/june-leetcoding-challenge/539/week-1-june-1st-june-7th/3351/
 Code:
 
 class Solution {
 public:
-    void reverseString(vector<char>& s) {
-        for(int i=0;i<s.size()/2;i++)
-            swap(s[i],s[s.size()-1-i]);
+    int sum=0;
+    vector<int> v;
+    Solution(vector<int>& w) {
+     int n=w.size();
+        for(int i=1;i<n;i++)
+            w[i]+=w[i-1];
+      v=w;
+    }
+    
+    int pickIndex() {
+        int k=rand()%v.back();
+        int ans = upper_bound(v.begin(),v.end(),k)-v.begin();
+        return ans;
     }
 };
+
