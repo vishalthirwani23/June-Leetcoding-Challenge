@@ -1,0 +1,29 @@
+https://leetcode.com/explore/featured/card/june-leetcoding-challenge/540/week-2-june-8th-june-14th/3359/
+Code:
+
+class Solution {
+public:
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        if(nums.empty()) return {};
+        sort(nums.begin(),nums.end());
+        int n=nums.size(),max_ind=0;
+        vector<int> dp(n,1);
+        vector<int> prev(n,-1);
+        for(int i=1;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(nums[i]%nums[j]==0 && dp[j]+1>dp[i]){
+                    dp[i]=dp[j]+1;
+                    prev[i]=j;
+                }
+            }
+            if(dp[max_ind]<dp[i]) max_ind=i;
+        }
+        int k=max_ind;
+        vector<int> ans;
+        while(k>=0){
+         ans.push_back(nums[k]);   
+            k=prev[k];
+        }
+        return ans;
+    }
+};
