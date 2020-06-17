@@ -1,0 +1,66 @@
+https://leetcode.com/explore/featured/card/june-leetcoding-challenge/541/week-3-june-15th-june-21st/3362/
+Code:
+
+class Solution {
+    
+public:
+    vector<string> split(string s,char c){
+        vector<string> res;
+        int i=0,n=s.length();
+        string p;
+        while(i<n){
+            if(s[i]!=c)
+                p+=s[i];
+            else{
+                if(!p.empty()){
+                    res.push_back(p);
+                    p.clear();
+                }
+            }
+            i++;
+            if(i==n && !p.empty()){
+                res.push_back(p);
+            }
+        }
+        return res;
+    }
+    
+    bool isvalid6(string s){
+        if(count(s.begin(),s.end(),':')!=7)
+            return false;
+        vector<string> v=split(s,':');
+        if(v.size()!=8) return false;
+        for(auto i:v){
+            if(i.empty() || i.length()>4 )  return false;
+            string z;
+            for(int j=0;j<i.length();j++){
+                if( isdigit(i[j]) ||(isalpha(i[j]) && toupper(i[j])<='F' ))  ;
+                else return false;
+            }
+        }
+        return true;
+    }
+    
+    bool isvalid4(string s){
+        if(count(s.begin(),s.end(),'.')!=3)
+            return false;
+        vector<string> v=split(s,'.');
+        if(v.size()!=4) return false;
+        for(auto i:v){
+            if(i.empty() || i.length()>3 )  return false;
+            if(i[0]=='0' && i.length()>1)   return false;
+            string z;
+            for(int j=0;j<i.length();j++){
+                if(i[j]<'0' || i[j]>'9') return false;
+                else z+=i[j];
+            }
+            if(stoi(z)>255) return false;
+        }
+        return true;
+    }
+    
+    string validIPAddress(string IP) {
+        return isvalid4(IP)?"IPv4":(isvalid6(IP)?"IPv6":"Neither");
+    }
+    
+};
