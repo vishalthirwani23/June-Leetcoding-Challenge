@@ -1,0 +1,53 @@
+https://leetcode.com/explore/featured/card/june-leetcoding-challenge/541/week-3-june-15th-june-21st/3363/
+Code:
+
+class Solution {
+public:
+    
+    vector<int> v={1,0,-1,0,1};
+    
+    void dfs(vector<vector<char>>& board, vector<vector<bool>>& visited,int x,int y){
+        
+        int m=board.size(),n=board[0].size();
+        
+        visited[x][y]=true;
+        
+        for(int i=0;i<4;i++){
+            if(x+v[i]>=0 && x+v[i]<m && y+v[i+1]>=0 && y+v[i+1]<n && board[x+v[i]][y+v[i+1]]=='O' && visited[x+v[i]][y+v[i+1]]==false)
+                dfs(board,visited,x+v[i],y+v[i+1]);
+        }
+        
+    }
+    void solve(vector<vector<char>>& board) {
+        
+        if(board.empty()) return ;
+        
+        int m=board.size(),n=board[0].size();
+        
+        if(m==1 || n==1) return ;
+        
+        vector<vector<bool>>visited(m,vector<bool>(n));
+        
+        for(int i=0;i<m;i+=m-1){
+            for(int j=0;j<n;j++){
+                if(visited[i][j]==false && board[i][j]=='O')
+                    dfs(board,visited,i,j);
+            }
+        }
+        
+         for(int i=1;i<=m-2;i++){
+            for(int j=0;j<n;j+=n-1){
+                if(visited[i][j]==false && board[i][j]=='O')
+                    dfs(board,visited,i,j);
+            }
+         }
+        
+        for(int i=1;i<=m-2;i++){
+            for(int j=1;j<=n-2;j++){
+                if(visited[i][j]==false && board[i][j]=='O')
+                    board[i][j]='X';
+            }
+        }
+        
+    }
+};
