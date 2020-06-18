@@ -1,0 +1,21 @@
+https://leetcode.com/explore/featured/card/june-leetcoding-challenge/541/week-3-june-15th-june-21st/3364/
+Code:
+
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        if(citations.empty()) return 0;
+        int start=0,end=citations.size()-1,n=end+1,ans=0;
+        while(start<=end){
+            int mid=start+(end-start)/2;
+            if(citations[mid]>=n-mid){
+                ans=n-mid;
+                end=mid-1;
+            }
+            else{
+                start=mid+1;
+            }
+        }
+        return ans;
+    }
+};
