@@ -1,0 +1,32 @@
+https://leetcode.com/explore/challenge/card/june-leetcoding-challenge/541/week-3-june-15th-june-21st/3366/
+Code:
+
+class Solution {
+public:
+    
+    string getPermutation(int n, int k) {
+      fact.resize(10,1);
+    for(int i=2;i<=9;i++)
+        fact[i]=(i*fact[i-1]);
+        string ans;
+        vector<char> v={'1','2','3','4','5','6','7','8','9'};
+        
+        while(n){
+            int temp=(k-1)/fact[n-1];
+            ans+=v[temp];
+            v.erase(v.begin()+temp);
+           
+            k-=(temp*fact[n-1]);
+             n--;
+        }
+        return ans;
+    }
+    private:
+     vector<int> fact;
+   
+};
+
+
+
+
+
