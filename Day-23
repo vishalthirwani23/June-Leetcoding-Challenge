@@ -1,0 +1,29 @@
+https://leetcode.com/explore/featured/card/june-leetcoding-challenge/542/week-4-june-22nd-june-28th/3369/
+Code:
+
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+     
+        int ans=0;
+        int h=height(root);
+        while(root){
+        if(height(root->right)+1==h){
+            ans+=(1<<h);
+            root=root->right;
+            }
+        else{
+            ans+=(1<<(h-1));
+            root=root->left;
+        }
+        h--;
+    }
+            return ans;
+            
+    }
+    private:
+    int height(TreeNode* root){
+        if(root==NULL) return -1;
+        return 1+height(root->left);
+    }
+};
