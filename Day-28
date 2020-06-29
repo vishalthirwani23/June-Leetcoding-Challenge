@@ -1,0 +1,30 @@
+https://leetcode.com/explore/challenge/card/june-leetcoding-challenge/542/week-4-june-22nd-june-28th/3374/
+Code:
+
+class Solution {
+public:
+     map<string,priority_queue<string,vector<string>,greater<string>>> m;
+     vector<string> ans;
+    vector<string> findItinerary(vector<vector<string>>& tickets) {
+       for(vector<string> ticket:tickets){
+           m[ticket[0]].push(ticket[1]);
+          
+       }
+         dfs("JFK");
+           reverse(ans.begin(),ans.end());
+           return ans;
+    }
+    private:
+    void dfs(string departure){
+         
+       
+         priority_queue<string,vector<string>,greater<string>> pq=m[departure];
+        while(!m[departure].empty()){
+           string s=m[departure].top();
+            m[departure].pop();
+            dfs(s);
+        }
+        
+       ans.push_back(departure);
+    }
+};
