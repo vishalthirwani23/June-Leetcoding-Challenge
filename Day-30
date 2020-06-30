@@ -1,0 +1,71 @@
+https://leetcode.com/explore/featured/card/june-leetcoding-challenge/543/week-5-june-29th-june-30th/3376/
+Code:
+
+class Solution {
+public:
+    class TrieNode{
+        public:
+      vector<TrieNode*> v;
+        string word;
+        
+       TrieNode(){
+           for(int i=0;i<26;i++)
+            v.push_back(NULL);
+           
+        }
+    };
+    TrieNode* buildtrie(vector<string> words){
+        TrieNode *root=new TrieNode();
+        for(string word:words){
+            TrieNode *p=root;
+            
+            for(char c:word){
+                int i=c-'a';
+                if(p->v[i]==NULL) p->v[i]=new TrieNode();
+                    p=p->v[i];
+                    
+            }
+            p->word=word;
+        }
+        return root;
+    }
+ 
+   
+    void dfs(int x, int y,int m,int n,vector<vector<char>>& board,TrieNode *root,vector<string>& ans){
+        char c=board[x][y];
+        if(c=='*' || root->v[c-'a']==NULL ) return ;
+        root=root->v[c-'a'];
+        if(root->word!=""){
+            ans.push_back(root->word);
+            root->word="";
+        }
+        board[x][y]='*';
+        
+        if(x+1<m)   dfs(x+1,y,m,n,board,root,ans);
+        if(x-1>=0)  dfs(x-1,y,m,n,board,root,ans);
+        if(y+1<n)   dfs(x,y+1,m,n,board,root,ans);
+        if(y-1>=0)  dfs(x,y-1,m,n,board,root,ans);
+          
+        board[x][y]=c;
+                
+    }
+  
+    
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        int m=board.size(),n=board[0].size();
+        vector<string> ans;
+        TrieNode *root=buildtrie(words);
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                dfs(i,j,m,n,board,root,ans);
+            }
+        }
+         
+        return ans;
+    }
+       
+  
+    
+   
+};
+
